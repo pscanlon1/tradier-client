@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios';
 
-import { TradierHistoryInterval, TradierSessionFilter, TradierTimeSalesInterval } from './tradier-market.models';
+import { TradierHistoryInterval, TradierSessionFilter, TradierTimeSalesInterval, Quotes, Options, Strikes, Expirations } from './tradier-market.models';
 import { TradierUtil } from '../tradier-util';
 
 interface TradierMarketEndpoints {
@@ -43,7 +43,7 @@ export class TradierMarketClient {
    * by average volume of the security. This can be used for simple search functions.
    * @param symbols Array of symbols (equity or option)
    */
-  public async getQuotes(symbols: string[]) {
+  public async getQuotes(symbols: string[]):Promise<Quotes> {
     const url: string = this.tradierUtil.buildUrl(endponts.quotes);
     const config: AxiosRequestConfig = this.tradierUtil.buildConfigWithParams({
       symbols: symbols.join(',')
@@ -58,7 +58,7 @@ export class TradierMarketClient {
    * @param symbol Underlying symbol of the chain
    * @param expiration Expiration for the chain (format 2019-05-17)
    */
-  public async getOptionChains(symbol: string, expiration: string) {
+  public async getOptionChains(symbol: string, expiration: string):Promise<Options> {
     const url: string = this.tradierUtil.buildUrl(endponts.option_chains);
     const config: AxiosRequestConfig = this.tradierUtil.buildConfigWithParams({
       symbol,
@@ -74,7 +74,7 @@ export class TradierMarketClient {
    * @param symbol Underlying symbol of the chain
    * @param expiration Expiration for the chain (format 2019-05-17)
    */
-  public async getOptionStrikes(symbol: string, expiration: string) {
+  public async getOptionStrikes(symbol: string, expiration: string): Promise<Strikes> {
     const url: string = this.tradierUtil.buildUrl(endponts.option_strikes);
     const config: AxiosRequestConfig = this.tradierUtil.buildConfigWithParams({
       symbol,
@@ -95,7 +95,7 @@ export class TradierMarketClient {
    * @param includeAllRoots Send expirations related to all option roots
    * @param strikes Add strike prices to each expiration
    */
-  public async getOptionExpirations(symbol: string, includeAllRoots: boolean = false, strikes: boolean = false) {
+  public async getOptionExpirations(symbol: string, includeAllRoots: boolean = false, strikes: boolean = false):Promise<Expirations> {
     const url: string = this.tradierUtil.buildUrl(endponts.option_expirations);
     const config: AxiosRequestConfig = this.tradierUtil.buildConfigWithParams({
       symbol,
@@ -115,7 +115,7 @@ export class TradierMarketClient {
    * @param start Start date represented as YYYY-MM-DD
    * @param end End date represented as YYYY-MM-DD
    */
-  public async getHistoricalPricing(symbol: string, interval?: TradierHistoryInterval, start?: string, end?: string) {
+  public async getHistoricalPricing(symbol: string, interval?: TradierHistoryInterval, start?: string, end?: string):Promise<History> {
     const url: string = this.tradierUtil.buildUrl(endponts.historical_quotes);
     const config: AxiosRequestConfig = this.tradierUtil.buildConfigWithParams({
       symbol,
