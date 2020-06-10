@@ -1,6 +1,6 @@
 {
   "name": "@reycodev/tradier-client",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Node.js Tradier Brokerage API written in typescript. ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
