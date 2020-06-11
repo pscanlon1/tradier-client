@@ -6,7 +6,9 @@ const options: TradierClientOptions = {
 }
 
 const tradier: TradierClient = new TradierClient(options);
-
-tradier.market.getHistoricalPricing('spy', TradierHistoryInterval.DAILY).then(qs => {
-    console.log('quote 1', JSON.stringify(qs, null, 2))
-})
+const e = await tradier.market.getOptionExpirations('ba');
+console.log(e);
+// .then(ok => console.log(ok))
+// tradier.market.getHistoricalPricing('spy', TradierHistoryInterval.DAILY).then(qs => {
+//     console.log('quote 1', JSON.stringify(qs, null, 2))
+// })
