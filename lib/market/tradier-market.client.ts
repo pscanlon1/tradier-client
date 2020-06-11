@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios';
 
-import { TradierHistoryInterval, TradierSessionFilter, TradierTimeSalesInterval, Quotes, Options, Strikes, Expirations } from './tradier-market.models';
+import { TradierHistoryInterval, TradierSessionFilter, TradierTimeSalesInterval, Quotes, Options, Strikes, Expirations, History } from './tradier-market.models';
 import { TradierUtil } from '../tradier-util';
 
 interface TradierMarketEndpoints {
@@ -15,6 +15,7 @@ interface TradierMarketEndpoints {
   calendar: string;
   search_companies: string;
   lookup_symbol: string;
+  market_session: string;
 }
 
 const endponts: TradierMarketEndpoints = {
@@ -29,6 +30,7 @@ const endponts: TradierMarketEndpoints = {
   calendar: '/v1/markets/calendar',
   search_companies: '/v1/markets/search',
   lookup_symbol: '/v1/markets/lookup',
+  market_session:'/v1/markets/events/session'
 }
 
 export class TradierMarketClient {
@@ -125,7 +127,7 @@ export class TradierMarketClient {
     });
 
     const response: AxiosResponse = await this.axios.get(url, config);
-    return response.data;
+    return response.data?.history?.day;
   }
 
   /**
@@ -211,6 +213,14 @@ export class TradierMarketClient {
       exchanges: exchanges.join(','),
       types
     });
+
+    const response: AxiosResponse = await this.axios.get(url, config);
+    return response.data;
+  }
+
+  public async getMarketSession():Promise<{stream: {url: string, sessionid: string}}> {
+    const url: string = this.tradierUtil.buildUrl(endponts.market_session);
+    const config: AxiosRequestConfig = this.tradierUtil.buildBaseConfig();
 
     const response: AxiosResponse = await this.axios.get(url, config);
     return response.data;

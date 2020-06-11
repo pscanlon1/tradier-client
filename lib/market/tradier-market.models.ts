@@ -91,7 +91,7 @@ export interface Day {
 }
 
 export interface Quotes {
-  quote: Quote;
+  quote: Quote[] | Quote;
 }
 
 export interface Quote {

@@ -1,5 +1,5 @@
 {
-  "name": "@reycodev/tradier-client",
+  "name": "@pscanlon/tradier-client",
   "version": "0.2.1",
   "description": "Node.js Tradier Brokerage API written in typescript. ",
   "main": "dist/index.js",
@@ -34,7 +34,9 @@
   "homepage": "https://github.com/ReycoDev/tradier-client#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "rxjs": "^6.5.5"
+    "isomorphic-ws": "^4.0.1",
+    "rxjs": "^6.5.5",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.13",

@@ -1,0 +1,40 @@
+@hostname  = sandbox.tradier.com
+@version = v1
+@uri = https://{{hostname}}/{{version}}
+@authToken = pR1lZssQGpFZuSKPocUIK6G6ryx9
+# @name expirations
+GET {{uri}}/markets/options/expirations?symbol=spy
+accept: application/json
+Authorization: Bearer {{authToken}}
+
+@expiration = {{expirations.response.body.expirations.date[0]}}
+
+### 
+GET {{uri}}/markets/options/chains?symbol=ba&expiration={{expiration}}&greeks=true
+accept: application/json
+Authorization: Bearer {{authToken}}
+
+### 
+GET {{uri}}/markets/options/strikes?symbol=spy&expiration={{expiration}}
+accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
+GET {{uri}}/markets/history?symbol=SPY200610P00320500,SPY
+accept: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{uri}}/markets/quotes?symbols=ba
+accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
+POST {{uri}}/markets/events/session
+accept: application/json
+Authorization: Bearer {{authToken}}

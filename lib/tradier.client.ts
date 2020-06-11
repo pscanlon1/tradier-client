@@ -20,4 +20,6 @@ export class TradierClient {
     this.market = new TradierMarketClient(this.tradierUtil, axios);
     this.fundamentals = new TradierFundamentalsClient(this.tradierUtil, axios);
   }
+
+  
 }
