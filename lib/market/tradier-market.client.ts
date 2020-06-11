@@ -68,7 +68,7 @@ export class TradierMarketClient {
     });
 
     const response: AxiosResponse = await this.axios.get(url, config);
-    return response.data;
+    return response.data?.options;
   }
 
   /**
